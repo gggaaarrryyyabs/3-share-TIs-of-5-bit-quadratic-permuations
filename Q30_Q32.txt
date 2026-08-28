@@ -1,0 +1,169 @@
+Optimal three-share TIs of Q_30^5 and Q_32^5
+================================================================================
+
+All additions and products are over F_2.
+Bit convention: x = a + 2b + 4c + 8d + 16e.
+Input shares: x^(i) = (a_i,b_i,c_i,d_i,e_i), i=1,2,3.
+
+Here "optimal" means a one-stage uniform 3-share TI without fresh randomness,
+with no changing of the guards.  Both S-boxes are quadratic, so 3 shares attain
+the t+1 lower bound.
+
+The correction maps below were found computationally.  Each resulting complete
+15-bit shared map was independently exhaustively verified on all 2^15 inputs.
+
+
+================================================================================
+Q_30^5
+================================================================================
+
+ANF of Q_30^5:
+Q_30^5(a,b,c,d,e) = (
+  a,
+  b,
+  c + c*d + e,
+  d + c*d + e + d*e,
+  c*d + c*e + d*e
+).
+
+Correction maps:
+
+U(a,b,c,d,e) = (
+  a + e,
+  b + c,
+  b + c + a*d + a*e + d*e + a*c*d*e,
+  b + d + a*d + e + a*e + d*e + a*c*d*e,
+  b + a*d + a*e + d*e + a*c*d*e
+).
+
+V(a,b,c,d,e) = (
+  e,
+  a*b + c + a*c + b*e + c*e,
+  a + c + a*c + c*d + e + c*e,
+  a + b + a*b + d + a*d + c*d + e + a*e + b*e,
+  b + a*b + b*d + a*b*d + a*c*d + a*e + a*b*e + a*c*e + d*e + b*d*e + c*d*e
+).
+
+W(a,b,c,d,e) = (
+  d,
+  c + d + e,
+  a + c + d + c*d + a*c*d + c*d*e,
+  a + c + c*d + a*c*d + d*e + c*d*e,
+  a + a*c + d + c*d + a*c*d + a*e + a*d*e + c*d*e
+).
+
+For x,y in F_2^5, let P_Q_30(x,y) = Q_30^5(x+y) + Q_30^5(x) + Q_30^5(y).
+
+Compact optimal TI:
+Q^(1) = Q_30(x^(2)) + P_Q_30(x^(2),x^(3)) + U(x^(2)) + V(x^(3)),
+Q^(2) = Q_30(x^(3)) + P_Q_30(x^(3),x^(1)) + V(x^(3)) + W(x^(1)),
+Q^(3) = Q_30(x^(1)) + P_Q_30(x^(1),x^(2)) + W(x^(1)) + U(x^(2)).
+
+Fully expanded output-share ANFs:
+
+Q^(1) = (A_1,B_1,C_1,D_1,E_1)
+A_1 = e_2 + e_3.
+B_1 = c_2 + a_3*b_3 + c_3 + a_3*c_3 + b_3*e_3 + c_3*e_3.
+C_1 = b_2 + a_2*d_2 + c_2*d_2 + e_2 + a_2*e_2 + d_2*e_2 + a_2*c_2*d_2*e_2 + a_3 + c_3 + d_2*c_3 + a_3*c_3 + c_2*d_3 + c_3*d_3 + e_3 + c_3*e_3.
+D_1 = b_2 + a_2*d_2 + c_2*d_2 + a_2*e_2 + a_2*c_2*d_2*e_2 + a_3 + b_3 + a_3*b_3 + d_2*c_3 + d_3 + c_2*d_3 + e_2*d_3 + a_3*d_3 + c_3*d_3 + e_3 + d_2*e_3 + a_3*e_3 + b_3*e_3.
+E_1 = b_2 + a_2*d_2 + c_2*d_2 + a_2*e_2 + c_2*e_2 + a_2*c_2*d_2*e_2 + b_3 + a_3*b_3 + d_2*c_3 + e_2*c_3 + c_2*d_3 + e_2*d_3 + b_3*d_3 + a_3*b_3*d_3 + a_3*c_3*d_3 + c_2*e_3 + d_2*e_3 + a_3*e_3 + a_3*b_3*e_3 + a_3*c_3*e_3 + d_3*e_3 + b_3*d_3*e_3 + c_3*d_3*e_3.
+
+Q^(2) = (A_2,B_2,C_2,D_2,E_2)
+A_2 = a_3 + e_3 + d_1.
+B_2 = b_3 + a_3*b_3 + c_3 + a_3*c_3 + b_3*e_3 + c_3*e_3 + c_1 + d_1 + e_1.
+C_2 = a_3 + a_3*c_3 + c_3*e_3 + a_1 + c_1 + d_3*c_1 + d_1 + c_3*d_1 + c_1*d_1 + a_1*c_1*d_1 + c_1*d_1*e_1.
+D_2 = a_3 + b_3 + a_3*b_3 + a_3*d_3 + a_3*e_3 + b_3*e_3 + d_3*e_3 + a_1 + c_1 + d_3*c_1 + c_3*d_1 + e_3*d_1 + c_1*d_1 + a_1*c_1*d_1 + d_3*e_1 + d_1*e_1 + c_1*d_1*e_1.
+E_2 = b_3 + a_3*b_3 + b_3*d_3 + a_3*b_3*d_3 + c_3*d_3 + a_3*c_3*d_3 + a_3*e_3 + a_3*b_3*e_3 + c_3*e_3 + a_3*c_3*e_3 + b_3*d_3*e_3 + c_3*d_3*e_3 + a_1 + d_3*c_1 + e_3*c_1 + a_1*c_1 + d_1 + c_3*d_1 + e_3*d_1 + c_1*d_1 + a_1*c_1*d_1 + c_3*e_1 + d_3*e_1 + a_1*e_1 + a_1*d_1*e_1 + c_1*d_1*e_1.
+
+Q^(3) = (A_3,B_3,C_3,D_3,E_3)
+A_3 = a_1 + d_1 + a_2 + e_2.
+B_3 = b_1 + c_1 + d_1 + e_1 + b_2 + c_2.
+C_3 = a_1 + d_1 + a_1*c_1*d_1 + e_1 + c_1*d_1*e_1 + b_2 + c_2 + d_1*c_2 + c_1*d_2 + a_2*d_2 + a_2*e_2 + d_2*e_2 + a_2*c_2*d_2*e_2.
+D_3 = a_1 + c_1 + d_1 + a_1*c_1*d_1 + e_1 + c_1*d_1*e_1 + b_2 + d_1*c_2 + d_2 + c_1*d_2 + e_1*d_2 + a_2*d_2 + e_2 + d_1*e_2 + a_2*e_2 + d_2*e_2 + a_2*c_2*d_2*e_2.
+E_3 = a_1 + a_1*c_1 + d_1 + a_1*c_1*d_1 + a_1*e_1 + c_1*e_1 + d_1*e_1 + a_1*d_1*e_1 + c_1*d_1*e_1 + b_2 + d_1*c_2 + e_1*c_2 + c_1*d_2 + e_1*d_2 + a_2*d_2 + c_1*e_2 + d_1*e_2 + a_2*e_2 + d_2*e_2 + a_2*c_2*d_2*e_2.
+
+Verification:
+  correctness on all 2^15 shared inputs: verified;
+  fixed omission pattern: Q^(1) omits x^(1), Q^(2) omits x^(2), Q^(3) omits x^(3);
+  complete 15-bit shared map: 2^15 distinct outputs;
+  hence the sharing is uniform.
+  maximum algebraic degree among U,V,W: 4;
+  maximum algebraic degree among expanded share coordinates: 4.
+
+
+================================================================================
+Q_32^5
+================================================================================
+
+ANF of Q_32^5:
+Q_32^5(a,b,c,d,e) = (
+  a + b*e,
+  b,
+  c + c*d + e,
+  d + c*d + e + d*e,
+  c*d + c*e + d*e
+).
+
+Correction maps:
+
+U(a,b,c,d,e) = (
+  a + b + c + b*e + c*e + d*e,
+  b + e,
+  b + c*d,
+  b + c + c*d + e + d*e,
+  c + c*d + c*e + d*e
+).
+
+V(a,b,c,d,e) = (
+  a + a*b + c + a*b*c + d + a*d + a*b*d + b*c*d + a*b*c*d + e + a*e + a*b*e + c*e + b*c*e + a*b*c*e + a*d*e + c*d*e + a*c*d*e + b*c*d*e,
+  d + e,
+  a*b + a*b*c + b*d + a*b*d + a*c*d + b*c*d + a*b*c*d + e + b*e + a*b*e + c*e + a*c*e + b*c*e + a*b*c*e + d*e + a*d*e + b*d*e + a*b*d*e + c*d*e + a*c*d*e + b*c*d*e + a*b*c*d*e,
+  a + b + a*b + a*c + a*b*c + d + a*d + b*d + a*b*d + c*d + b*c*d + a*b*c*d + a*e + b*e + a*b*e + b*c*e + a*b*c*e + d*e + a*d*e + b*d*e + a*b*d*e + c*d*e + a*c*d*e + b*c*d*e + a*b*c*d*e,
+  b + c + b*c + d + a*d + e + a*e + a*d*e + a*c*d*e
+).
+
+W(a,b,c,d,e) = (
+  a + b + c + d + c*d + b*c*d + b*d*e + b*c*d*e,
+  c + d,
+  b + d + e,
+  b + e,
+  c + e
+).
+
+For x,y in F_2^5, let P_Q_32(x,y) = Q_32^5(x+y) + Q_32^5(x) + Q_32^5(y).
+
+Compact optimal TI:
+Q^(1) = Q_32(x^(2)) + P_Q_32(x^(2),x^(3)) + U(x^(2)) + V(x^(3)),
+Q^(2) = Q_32(x^(3)) + P_Q_32(x^(3),x^(1)) + V(x^(3)) + W(x^(1)),
+Q^(3) = Q_32(x^(1)) + P_Q_32(x^(1),x^(2)) + W(x^(1)) + U(x^(2)).
+
+Fully expanded output-share ANFs:
+
+Q^(1) = (A_1,B_1,C_1,D_1,E_1)
+A_1 = b_2 + c_2 + c_2*e_2 + d_2*e_2 + a_3 + e_2*b_3 + a_3*b_3 + c_3 + a_3*b_3*c_3 + d_3 + a_3*d_3 + a_3*b_3*d_3 + b_3*c_3*d_3 + a_3*b_3*c_3*d_3 + e_3 + b_2*e_3 + a_3*e_3 + a_3*b_3*e_3 + c_3*e_3 + b_3*c_3*e_3 + a_3*b_3*c_3*e_3 + a_3*d_3*e_3 + c_3*d_3*e_3 + a_3*c_3*d_3*e_3 + b_3*c_3*d_3*e_3.
+B_1 = e_2 + d_3 + e_3.
+C_1 = b_2 + c_2 + e_2 + a_3*b_3 + d_2*c_3 + a_3*b_3*c_3 + c_2*d_3 + b_3*d_3 + a_3*b_3*d_3 + a_3*c_3*d_3 + b_3*c_3*d_3 + a_3*b_3*c_3*d_3 + e_3 + b_3*e_3 + a_3*b_3*e_3 + c_3*e_3 + a_3*c_3*e_3 + b_3*c_3*e_3 + a_3*b_3*c_3*e_3 + d_3*e_3 + a_3*d_3*e_3 + b_3*d_3*e_3 + a_3*b_3*d_3*e_3 + c_3*d_3*e_3 + a_3*c_3*d_3*e_3 + b_3*c_3*d_3*e_3 + a_3*b_3*c_3*d_3*e_3.
+D_1 = b_2 + c_2 + d_2 + a_3 + b_3 + a_3*b_3 + d_2*c_3 + a_3*c_3 + a_3*b_3*c_3 + d_3 + c_2*d_3 + e_2*d_3 + a_3*d_3 + b_3*d_3 + a_3*b_3*d_3 + c_3*d_3 + b_3*c_3*d_3 + a_3*b_3*c_3*d_3 + d_2*e_3 + a_3*e_3 + b_3*e_3 + a_3*b_3*e_3 + b_3*c_3*e_3 + a_3*b_3*c_3*e_3 + d_3*e_3 + a_3*d_3*e_3 + b_3*d_3*e_3 + a_3*b_3*d_3*e_3 + c_3*d_3*e_3 + a_3*c_3*d_3*e_3 + b_3*c_3*d_3*e_3 + a_3*b_3*c_3*d_3*e_3.
+E_1 = c_2 + b_3 + c_3 + d_2*c_3 + e_2*c_3 + b_3*c_3 + d_3 + c_2*d_3 + e_2*d_3 + a_3*d_3 + e_3 + c_2*e_3 + d_2*e_3 + a_3*e_3 + a_3*d_3*e_3 + a_3*c_3*d_3*e_3.
+
+Q^(2) = (A_2,B_2,C_2,D_2,E_2)
+A_2 = a_3*b_3 + c_3 + a_3*b_3*c_3 + d_3 + a_3*d_3 + a_3*b_3*d_3 + b_3*c_3*d_3 + a_3*b_3*c_3*d_3 + e_3 + a_3*e_3 + b_3*e_3 + a_3*b_3*e_3 + c_3*e_3 + b_3*c_3*e_3 + a_3*b_3*c_3*e_3 + a_3*d_3*e_3 + c_3*d_3*e_3 + a_3*c_3*d_3*e_3 + b_3*c_3*d_3*e_3 + a_1 + b_1 + e_3*b_1 + c_1 + d_1 + c_1*d_1 + b_1*c_1*d_1 + b_3*e_1 + b_1*d_1*e_1 + b_1*c_1*d_1*e_1.
+B_2 = b_3 + d_3 + e_3 + c_1 + d_1.
+C_2 = a_3*b_3 + c_3 + a_3*b_3*c_3 + b_3*d_3 + a_3*b_3*d_3 + c_3*d_3 + a_3*c_3*d_3 + b_3*c_3*d_3 + a_3*b_3*c_3*d_3 + b_3*e_3 + a_3*b_3*e_3 + c_3*e_3 + a_3*c_3*e_3 + b_3*c_3*e_3 + a_3*b_3*c_3*e_3 + d_3*e_3 + a_3*d_3*e_3 + b_3*d_3*e_3 + a_3*b_3*d_3*e_3 + c_3*d_3*e_3 + a_3*c_3*d_3*e_3 + b_3*c_3*d_3*e_3 + a_3*b_3*c_3*d_3*e_3 + b_1 + d_3*c_1 + d_1 + c_3*d_1 + e_1.
+D_2 = a_3 + b_3 + a_3*b_3 + a_3*c_3 + a_3*b_3*c_3 + a_3*d_3 + b_3*d_3 + a_3*b_3*d_3 + b_3*c_3*d_3 + a_3*b_3*c_3*d_3 + e_3 + a_3*e_3 + b_3*e_3 + a_3*b_3*e_3 + b_3*c_3*e_3 + a_3*b_3*c_3*e_3 + a_3*d_3*e_3 + b_3*d_3*e_3 + a_3*b_3*d_3*e_3 + c_3*d_3*e_3 + a_3*c_3*d_3*e_3 + b_3*c_3*d_3*e_3 + a_3*b_3*c_3*d_3*e_3 + b_1 + d_3*c_1 + c_3*d_1 + e_3*d_1 + e_1 + d_3*e_1.
+E_2 = b_3 + c_3 + b_3*c_3 + d_3 + a_3*d_3 + c_3*d_3 + e_3 + a_3*e_3 + c_3*e_3 + d_3*e_3 + a_3*d_3*e_3 + a_3*c_3*d_3*e_3 + c_1 + d_3*c_1 + e_3*c_1 + c_3*d_1 + e_3*d_1 + e_1 + c_3*e_1 + d_3*e_1.
+
+Q^(3) = (A_3,B_3,C_3,D_3,E_3)
+A_3 = b_1 + c_1 + d_1 + c_1*d_1 + b_1*c_1*d_1 + b_1*e_1 + b_1*d_1*e_1 + b_1*c_1*d_1*e_1 + a_2 + b_2 + e_1*b_2 + c_2 + b_1*e_2 + b_2*e_2 + c_2*e_2 + d_2*e_2.
+B_3 = b_1 + c_1 + d_1 + b_2 + e_2.
+C_3 = b_1 + c_1 + d_1 + c_1*d_1 + b_2 + d_1*c_2 + c_1*d_2 + c_2*d_2.
+D_3 = b_1 + d_1 + c_1*d_1 + d_1*e_1 + b_2 + c_2 + d_1*c_2 + c_1*d_2 + e_1*d_2 + c_2*d_2 + e_2 + d_1*e_2 + d_2*e_2.
+E_3 = c_1 + c_1*d_1 + e_1 + c_1*e_1 + d_1*e_1 + c_2 + d_1*c_2 + e_1*c_2 + c_1*d_2 + e_1*d_2 + c_2*d_2 + c_1*e_2 + d_1*e_2 + c_2*e_2 + d_2*e_2.
+
+Verification:
+  correctness on all 2^15 shared inputs: verified;
+  fixed omission pattern: Q^(1) omits x^(1), Q^(2) omits x^(2), Q^(3) omits x^(3);
+  complete 15-bit shared map: 2^15 distinct outputs;
+  hence the sharing is uniform.
+  maximum algebraic degree among U,V,W: 5;
+  maximum algebraic degree among expanded share coordinates: 5.
